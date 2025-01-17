@@ -1,46 +1,76 @@
-2025-01-10 16:42:56,301 - INFO - Appareil utilisé : cpu
-2025-01-10 16:42:56,307 - INFO - Chargement du tokenizer et du modèle...
-2025-01-10 16:55:00,064 - WARNING - Error while downloading from https://cdn-lfs-us-1.hf.co/repos/5b/ac/5bac2c5d8af0c44f9d83bd9f7e079262d0f6f841d2bb5ae1b068ee9c5d2c081a/222c4379b38c273e69e7e7ba7c68517ab8fef0bc92f8a5f557cf834f65046471?response-content-disposition=inline%3B+filename*%3DUTF-8%27%27model.safetensors%3B+filename%3D%22model.safetensors%22%3B&Expires=1736782983&Policy=eyJTdGF0ZW1lbnQiOlt7IkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTczNjc4Mjk4M319LCJSZXNvdXJjZSI6Imh0dHBzOi8vY2RuLWxmcy11cy0xLmhmLmNvL3JlcG9zLzViL2FjLzViYWMyYzVkOGFmMGM0NGY5ZDgzYmQ5ZjdlMDc5MjYyZDBmNmY4NDFkMmJiNWFlMWIwNjhlZTljNWQyYzA4MWEvMjIyYzQzNzliMzhjMjczZTY5ZTdlN2JhN2M2ODUxN2FiOGZlZjBiYzkyZjhhNWY1NTdjZjgzNGY2NTA0NjQ3MT9yZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPSoifV19&Signature=baZeDFJ97YzGqluC0TuqoFZcOGvtlOl1JE-det7ZEwRIK37vvKGiByLddhvEqvx%7EdanmtKRd8LTn7WFUFg4L2ORB-dqScQDrxpu4bCcE7jS5ztepOy0bMoD0oyUyyux2vL6KGBFUUZImJwLRhYruRwGLfUTCsQitrkwlezBWfpz9YTgnyQkVqT4gV1TsSasEvGz3wH%7EJtMm25a6n5TWNXKGJEaEhAfSY96GJOAe9O5xfePaTMuYhNp-kmA9wuCQWJg9uAkpVeZCgh2nMKxCJL710zrxR-2h8kbLQaWqasNOVN83RICoz8JhmWRg-%7Eedeopjr9Vh7kcZ1EI72FMtDfQ__&Key-Pair-Id=K24J24Z295AEI9: HTTPSConnectionPool(host='cdn-lfs-us-1.hf.co', port=443): Read timed out.
-Trying to resume download...
-2025-01-10 16:55:14,916 - WARNING - Error while downloading from https://cdn-lfs-us-1.hf.co/repos/5b/ac/5bac2c5d8af0c44f9d83bd9f7e079262d0f6f841d2bb5ae1b068ee9c5d2c081a/222c4379b38c273e69e7e7ba7c68517ab8fef0bc92f8a5f557cf834f65046471?response-content-disposition=inline%3B+filename*%3DUTF-8%27%27model.safetensors%3B+filename%3D%22model.safetensors%22%3B&Expires=1736782983&Policy=eyJTdGF0ZW1lbnQiOlt7IkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTczNjc4Mjk4M319LCJSZXNvdXJjZSI6Imh0dHBzOi8vY2RuLWxmcy11cy0xLmhmLmNvL3JlcG9zLzViL2FjLzViYWMyYzVkOGFmMGM0NGY5ZDgzYmQ5ZjdlMDc5MjYyZDBmNmY4NDFkMmJiNWFlMWIwNjhlZTljNWQyYzA4MWEvMjIyYzQzNzliMzhjMjczZTY5ZTdlN2JhN2M2ODUxN2FiOGZlZjBiYzkyZjhhNWY1NTdjZjgzNGY2NTA0NjQ3MT9yZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPSoifV19&Signature=baZeDFJ97YzGqluC0TuqoFZcOGvtlOl1JE-det7ZEwRIK37vvKGiByLddhvEqvx%7EdanmtKRd8LTn7WFUFg4L2ORB-dqScQDrxpu4bCcE7jS5ztepOy0bMoD0oyUyyux2vL6KGBFUUZImJwLRhYruRwGLfUTCsQitrkwlezBWfpz9YTgnyQkVqT4gV1TsSasEvGz3wH%7EJtMm25a6n5TWNXKGJEaEhAfSY96GJOAe9O5xfePaTMuYhNp-kmA9wuCQWJg9uAkpVeZCgh2nMKxCJL710zrxR-2h8kbLQaWqasNOVN83RICoz8JhmWRg-%7Eedeopjr9Vh7kcZ1EI72FMtDfQ__&Key-Pair-Id=K24J24Z295AEI9: HTTPSConnectionPool(host='cdn-lfs-us-1.hf.co', port=443): Read timed out.
-Trying to resume download...
-2025-01-10 16:56:39,908 - INFO - Appareil utilisé : cpu
-2025-01-10 16:56:39,911 - INFO - Chargement du tokenizer et du modèle...
-2025-01-10 17:10:20,467 - INFO - Début du traitement des 2 chunks de texte...
-2025-01-10 17:10:20,550 - INFO - Traitement du chunk 1/2 : Ceci est un exemple de texte....
-2025-01-10 17:10:32,318 - ERROR - Erreur API Hugging Face : 503 - {"error":"Model dunzhang/stella_en_1.5B_v5 is currently loading","estimated_time":246.92303466796875}
-2025-01-10 17:10:32,322 - WARNING - Embedding non généré pour le chunk 1.
-2025-01-10 17:10:32,324 - INFO - Traitement du chunk 2/2 : Un autre exemple de morceau de texte....
-2025-01-10 17:10:35,474 - ERROR - Erreur API Hugging Face : 503 - {"error":"Model dunzhang/stella_en_1.5B_v5 is currently loading","estimated_time":246.92303466796875}
-2025-01-10 17:10:35,474 - WARNING - Embedding non généré pour le chunk 2.
-2025-01-10 17:10:35,479 - INFO - Fin du traitement des chunks.
-2025-01-10 17:10:35,480 - INFO - Création du DataFrame avec les embeddings...
-2025-01-10 17:10:35,694 - INFO - DataFrame sauvegardé avec succès dans text_chunks_and_embeddings_df.csv.
-2025-01-10 17:10:35,769 - INFO - Fichier text_chunks_and_embeddings_df.csv chargé avec succès.
-2025-01-10 17:13:16,378 - INFO - Début du traitement des 2 chunks de texte...
-2025-01-10 17:13:16,391 - INFO - Traitement du chunk 1/2 : Ceci est un exemple de texte....
-2025-01-10 17:13:18,131 - INFO - Embedding généré avec succès pour le chunk 1.
-2025-01-10 17:13:18,144 - INFO - Traitement du chunk 2/2 : Un autre exemple de morceau de texte....
-2025-01-10 17:13:19,474 - INFO - Embedding généré avec succès pour le chunk 2.
-2025-01-10 17:13:19,478 - INFO - Fin du traitement des chunks.
-2025-01-10 17:13:19,480 - INFO - Création du DataFrame avec les embeddings...
-2025-01-10 17:13:19,564 - INFO - DataFrame sauvegardé avec succès dans text_chunks_and_embeddings_df.csv.
-2025-01-10 17:13:19,604 - INFO - Fichier text_chunks_and_embeddings_df.csv chargé avec succès.
-2025-01-10 17:15:31,324 - INFO - Début du traitement des 2 chunks de texte...
-2025-01-10 17:15:31,332 - INFO - Traitement du chunk 1/2 : Ceci est un exemple de texte....
-2025-01-10 17:15:34,821 - INFO - Embedding généré avec succès pour le chunk 1.
-2025-01-10 17:15:34,822 - INFO - Traitement du chunk 2/2 : Un autre exemple de morceau de texte....
-2025-01-10 17:15:37,056 - INFO - Embedding généré avec succès pour le chunk 2.
-2025-01-10 17:15:37,061 - INFO - Fin du traitement des chunks.
-2025-01-10 17:15:37,061 - INFO - Création du DataFrame avec les embeddings...
-2025-01-10 17:15:37,067 - INFO - DataFrame sauvegardé avec succès dans text_chunks_and_embeddings_df.csv.
-2025-01-10 17:15:37,081 - INFO - Fichier text_chunks_and_embeddings_df.csv chargé avec succès.
-2025-01-10 17:16:52,257 - INFO - Début du traitement des 2 chunks de texte...
-2025-01-10 17:16:52,264 - INFO - Traitement du chunk 1/2 : Ceci est un exemple de texte....
-2025-01-10 17:16:55,058 - INFO - Embedding généré avec succès pour le chunk 1.
-2025-01-10 17:16:55,059 - INFO - Traitement du chunk 2/2 : Un autre exemple de morceau de texte....
-2025-01-10 17:16:56,069 - INFO - Embedding généré avec succès pour le chunk 2.
-2025-01-10 17:16:56,075 - INFO - Fin du traitement des chunks.
-2025-01-10 17:16:56,076 - INFO - Création du DataFrame avec les embeddings...
-2025-01-10 17:16:56,086 - INFO - DataFrame sauvegardé avec succès dans text_chunks_and_embeddings_df.csv.
-2025-01-10 17:16:56,103 - INFO - Fichier text_chunks_and_embeddings_df.csv chargé avec succès.
+2025-01-12 14:11:58,865 - INFO - Début du processus de génération des embeddings.
+2025-01-12 14:11:58,869 - INFO - Use pytorch device_name: cpu
+2025-01-12 14:11:58,870 - INFO - Load pretrained SentenceTransformer: dunzhang/stella_en_1.5B_v5
+2025-01-12 14:12:18,924 - INFO - 2 prompts are loaded, with the keys: ['s2p_query', 's2s_query']
+2025-01-12 14:12:18,932 - INFO - Modèle 'dunzhang/stella_en_1.5B_v5' chargé avec succès.
+2025-01-12 14:13:14,498 - INFO - Embedding généré avec succès pour la page 1.
+2025-01-12 14:13:57,449 - INFO - Embedding généré avec succès pour la page 2.
+2025-01-12 14:14:46,876 - INFO - Embedding généré avec succès pour la page 3.
+2025-01-12 14:15:26,522 - INFO - Embedding généré avec succès pour la page 3.
+2025-01-12 14:16:13,384 - INFO - Embedding généré avec succès pour la page 4.
+2025-01-12 14:16:53,756 - INFO - Embedding généré avec succès pour la page 4.
+2025-01-12 14:17:40,801 - INFO - Embedding généré avec succès pour la page 5.
+2025-01-12 14:18:24,391 - INFO - Embedding généré avec succès pour la page 6.
+2025-01-12 14:19:05,865 - INFO - Embedding généré avec succès pour la page 7.
+2025-01-12 14:19:40,032 - INFO - Embedding généré avec succès pour la page 7.
+2025-01-12 14:20:20,306 - INFO - Embedding généré avec succès pour la page 8.
+2025-01-12 14:21:00,905 - INFO - Embedding généré avec succès pour la page 8.
+2025-01-12 14:21:31,230 - INFO - Embedding généré avec succès pour la page 9.
+2025-01-12 14:22:16,942 - INFO - Embedding généré avec succès pour la page 10.
+2025-01-12 14:22:58,859 - INFO - Embedding généré avec succès pour la page 11.
+2025-01-12 14:23:35,461 - INFO - Embedding généré avec succès pour la page 12.
+2025-01-12 14:24:12,877 - INFO - Embedding généré avec succès pour la page 12.
+2025-01-12 14:24:50,528 - INFO - Embedding généré avec succès pour la page 12.
+2025-01-12 14:25:31,612 - INFO - Embedding généré avec succès pour la page 13.
+2025-01-12 14:26:16,304 - INFO - Embedding généré avec succès pour la page 14.
+2025-01-12 14:26:59,255 - INFO - Embedding généré avec succès pour la page 15.
+2025-01-12 14:27:38,866 - INFO - Embedding généré avec succès pour la page 15.
+2025-01-12 14:28:21,837 - INFO - Embedding généré avec succès pour la page 16.
+2025-01-12 14:29:06,634 - INFO - Embedding généré avec succès pour la page 16.
+2025-01-12 14:29:51,655 - INFO - Embedding généré avec succès pour la page 17.
+2025-01-12 14:30:33,630 - INFO - Embedding généré avec succès pour la page 17.
+2025-01-12 14:31:20,544 - INFO - Embedding généré avec succès pour la page 18.
+2025-01-12 14:31:50,954 - INFO - Embedding généré avec succès pour la page 18.
+2025-01-12 14:32:28,311 - INFO - Embedding généré avec succès pour la page 19.
+2025-01-12 14:33:14,599 - INFO - Embedding généré avec succès pour la page 20.
+2025-01-12 14:33:54,258 - INFO - Embedding généré avec succès pour la page 21.
+2025-01-12 14:34:35,279 - INFO - Embedding généré avec succès pour la page 21.
+2025-01-12 14:35:20,944 - INFO - Embedding généré avec succès pour la page 22.
+2025-01-12 14:35:59,851 - INFO - Embedding généré avec succès pour la page 22.
+2025-01-12 14:36:51,133 - INFO - Embedding généré avec succès pour la page 23.
+2025-01-12 14:37:38,428 - INFO - Embedding généré avec succès pour la page 24.
+2025-01-12 14:38:16,400 - INFO - Embedding généré avec succès pour la page 24.
+2025-01-12 14:39:06,522 - INFO - Embedding généré avec succès pour la page 25.
+2025-01-12 14:39:43,781 - INFO - Embedding généré avec succès pour la page 25.
+2025-01-12 14:40:26,627 - INFO - Embedding généré avec succès pour la page 26.
+2025-01-12 14:41:03,561 - INFO - Embedding généré avec succès pour la page 27.
+2025-01-12 14:41:37,194 - INFO - Embedding généré avec succès pour la page 28.
+2025-01-12 14:42:06,774 - INFO - Embedding généré avec succès pour la page 29.
+2025-01-12 14:42:58,347 - INFO - Embedding généré avec succès pour la page 30.
+2025-01-12 14:43:44,776 - INFO - Embedding généré avec succès pour la page 31.
+2025-01-12 14:44:20,790 - INFO - Embedding généré avec succès pour la page 31.
+2025-01-12 14:45:02,144 - INFO - Embedding généré avec succès pour la page 32.
+2025-01-12 14:45:31,546 - INFO - Embedding généré avec succès pour la page 32.
+2025-01-12 14:46:32,629 - INFO - Embedding généré avec succès pour la page 33.
+2025-01-12 14:47:33,136 - INFO - Embedding généré avec succès pour la page 34.
+2025-01-12 14:48:49,792 - INFO - Embedding généré avec succès pour la page 35.
+2025-01-12 14:50:49,880 - INFO - Embedding généré avec succès pour la page 36.
+2025-01-12 14:51:42,825 - INFO - Embedding généré avec succès pour la page 37.
+2025-01-12 14:52:41,721 - INFO - Embedding généré avec succès pour la page 38.
+2025-01-12 14:53:39,740 - INFO - Embedding généré avec succès pour la page 39.
+2025-01-12 14:54:48,015 - INFO - Embedding généré avec succès pour la page 39.
+2025-01-12 14:56:01,567 - INFO - Embedding généré avec succès pour la page 40.
+2025-01-12 14:56:46,136 - INFO - Embedding généré avec succès pour la page 41.
+2025-01-12 14:57:29,733 - INFO - Embedding généré avec succès pour la page 42.
+2025-01-12 14:58:14,335 - INFO - Embedding généré avec succès pour la page 43.
+2025-01-12 14:59:01,498 - INFO - Embedding généré avec succès pour la page 44.
+2025-01-12 14:59:52,458 - INFO - Embedding généré avec succès pour la page 45.
+2025-01-12 15:00:54,289 - INFO - Embedding généré avec succès pour la page 46.
+2025-01-12 15:01:44,608 - INFO - Embedding généré avec succès pour la page 46.
+2025-01-12 15:02:35,525 - INFO - Embedding généré avec succès pour la page 47.
+2025-01-12 15:02:35,862 - INFO - Les embeddings ont été sauvegardés dans le fichier : chunks_embeddings.csv
+2025-01-12 16:05:54,274 - INFO - Début du processus de génération des embeddings.
+2025-01-12 16:05:54,413 - INFO - Use pytorch device_name: cpu
+2025-01-12 16:05:54,413 - INFO - Load pretrained SentenceTransformer: dunzhang/stella_en_1.5B_v5
+2025-01-12 16:06:42,173 - INFO - 2 prompts are loaded, with the keys: ['s2p_query', 's2s_query']
+2025-01-12 16:06:42,174 - INFO - Modèle 'dunzhang/stella_en_1.5B_v5' chargé avec succès.
