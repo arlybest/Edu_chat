@@ -1,0 +1,14 @@
+
+.DS_Store
+
+.my_venv
+
+/data
+
+.data
+
+.env
+
+/my_venv
+
+/venv
