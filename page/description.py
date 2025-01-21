@@ -56,7 +56,7 @@ st.markdown(
 )
 
 # Comment utiliser l'application
-st.subheader("🚀 Comment utiliser Edu Chat ?")
+st.subheader("🚀 Comment utiliser Edu_Chat ?")
 st.markdown(
     """
     1. **Naviguez dans le menu** pour choisir une rubrique (Description, Contact, Chat...).
@@ -67,7 +67,7 @@ st.markdown(
 )
 
 # Ajouter une image d'illustration si besoin
-image_path = "page/edu_chat_ui.jpg"  # Vérifie ce chemin
+image_path = "page/description.jpg"  
 image = Image.open(image_path)
 st.image(image, caption="Interface de Edu Chat", use_container_width=True)
 
