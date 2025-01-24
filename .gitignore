@@ -1,13 +1,8 @@
 .DS_Store
-
 .my_venv
-
 /data
-
 .data
-
 .env
-
 /my_venv
 
 /venv
@@ -22,3 +17,8 @@
 
 
 
+/venv
+.venv
+.gitignore
+.data_projet_tutore
+/data_projet_tutore
