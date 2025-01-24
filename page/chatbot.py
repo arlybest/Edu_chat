@@ -2,13 +2,28 @@ import streamlit as st
 from transformers import pipeline
 import random
 
-# Fonction d'initialisation pour le modèle 
-generator = pipeline('text-generation', model='gpt2')
+# Initialisation du modèle (Utilisation d'un modèle par défaut si aucun modèle spécifique n'est encore défini)
+try:
+    generator = pipeline("text-generation", model="distilgpt2")
+except Exception as e:
+    generator = None
+    st.error(f"Erreur lors du chargement du modèle : {e}")
 
-# Fonction pour générer une réponse avec GPT-2 (ou tout autre modèle)
+# Liste de réponses aléatoires en attendant un vrai modèle
+default_responses = [
+    "Je suis encore en apprentissage !",
+    "Je vais bientôt pouvoir mieux répondre.",
+    "Merci pour votre question !",
+    "Je suis là pour vous aider."
+]
+
+# Fonction pour générer une réponse
 def get_bot_response(user_input):
-    response = generator(user_input, max_length=100, num_return_sequences=1)
-    return response[0]['generated_text']
+    if generator:
+        response = generator(user_input, max_length=100, num_return_sequences=1)
+        return response[0]['generated_text']
+    else:
+        return random.choice(default_responses)
 
 # Fonction de l'application chatbot
 def app():
@@ -51,46 +66,47 @@ def app():
         """, unsafe_allow_html=True
     )
 
-    # Affichage du message de bienvenue
-    st.markdown("**Bienvenue sur le Chatbot Edu Chat!** \nPosez vos questions et je vais vous répondre avec plaisir.")
+    # Message de bienvenue
+    st.markdown("**Bienvenue sur Edu Chat !** Posez vos questions et je vous répondrai avec plaisir.")
 
-    # Initialisation de la session pour garder l'historique de la conversation
+    # Initialisation de l'historique des messages
     if "messages" not in st.session_state:
         st.session_state.messages = []
 
-    # Saisie de texte pour l'utilisateur
+    # Champ de saisie utilisateur
     user_input = st.text_input("Votre question", "", key="input_text")
 
-    # Bouton pour envoyer le message
+    # Bouton d'envoi
     if st.button("Envoyer", key="send_button"):
-        # Ajouter le message de l'utilisateur dans l'historique
         if user_input:
+            # Ajout du message utilisateur
             st.session_state.messages.append({"role": "user", "message": user_input})
 
-            # Générer une réponse du chatbot
+            # Réponse du chatbot
             bot_response = get_bot_response(user_input)
 
-            # Ajouter la réponse du chatbot dans l'historique
+            # Ajout de la réponse du chatbot
             st.session_state.messages.append({"role": "bot", "message": bot_response})
 
-            # Réinitialiser le champ de texte après envoi
-            st.text_input("Votre question", "", key="reset_input")
-
-    # Affichage de l'historique des messages
+    # Affichage des messages
     for message in st.session_state.messages:
         if message["role"] == "user":
             st.markdown(f'<div class="message-container"><div class="user-message">**Vous** : {message["message"]}</div></div>', unsafe_allow_html=True)
         else:
             st.markdown(f'<div class="message-container"><div class="bot-message">**Chatbot** : {message["message"]}</div></div>', unsafe_allow_html=True)
 
-    # Option d'entrée avec un placeholder pour guider l'utilisateur
+    # Champ de texte avec placeholder
     st.text_input("Appuyez sur 'Enter' pour envoyer", "", key="message_input", placeholder="Tapez ici...", label_visibility="collapsed")
 
-    # Message d'assistance pour l'utilisateur
+    # Message d'assistance
     st.markdown(
         """
         <p style="font-size: 14px; color: #808080; text-align: center;">
-            Si vous avez des questions concernant le syllabus ou autre sujet, je suis là pour vous aider.
+            Si vous avez des questions concernant le syllabus ou un autre sujet, je suis là pour vous aider.
         </p>
         """, unsafe_allow_html=True
     )
+
+# Lancer l'application
+if __name__ == "__main__":
+    app()

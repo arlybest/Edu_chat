@@ -2,6 +2,8 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 import os
 from dotenv import load_dotenv
+
+# Charger les variables d'environnement
 load_dotenv()
 
 # Importer les pages de l'application
@@ -9,24 +11,13 @@ import acceuil, description, chatbot
 
 # Configuration de la page principale
 st.set_page_config(
-    page_title="Edu Chat - Assistant Éducatif",
+    page_title="Edu_Chat - Assistant Éducatif",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Intégration de Google Analytics
-st.markdown(
-    f"""
-        <script async src="https://www.googletagmanager.com/gtag/js?id={os.getenv('analytics_tag')}"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){{dataLayer.push(arguments);}}
-            gtag('js', new Date());
-            gtag('config', '{os.getenv('analytics_tag')}');
-        </script>
-    """,
-    unsafe_allow_html=True
-)
+
+
 
 # Définition de la classe MultiApp pour gérer les pages
 class MultiApp:
@@ -39,29 +30,54 @@ class MultiApp:
             "function": func
         })
 
-    def run():
+    def run(self):
+        # Menu latéral avec Streamlit OptionMenu
         with st.sidebar:
             app = option_menu(
-                menu_title='📚 Edu Chat - Menu',
-                options=['🏠 Accueil', '📖 description', '💬 Chatbot', 'ℹ️ À propos', '📞 Contact'],
-                icons=['house-fill', 'book-fill', 'chat-fill', 'info-circle-fill', 'telephone-fill'],
+                menu_title='📚 Edu_Chat - Menu',
+                options=['🏠 Accueil', '📖 Description', '💬 Chatbot'],
+                icons=['house-fill', 'book-fill', 'chat-fill', ],
                 menu_icon='cast',
                 default_index=0,
                 styles={
-                    "container": {"padding": "5px", "background-color": "#1E1E1E"},
-                    "icon": {"color": "#FFD700", "font-size": "22px"}, 
-                    "nav-link": {"color": "#FFFFFF", "font-size": "18px", "text-align": "left", "--hover-color": "#0056b3"},
-                    "nav-link-selected": {"background-color": "#0056b3", "color": "white"},
+                    "container": {"padding": "10px", "background-color": "#2c3e50"},
+                    "icon": {"color": "#1abc9c", "font-size": "20px"},
+                    "nav-link": {"color": "#ecf0f1", "font-size": "18px", "text-align": "left", "--hover-color": "#2980b9"},
+                    "nav-link-selected": {"background-color": "#2980b9", "color": "white", "border-radius": "5px"},
                 }
             )
 
         # Navigation entre les pages
         if app == "🏠 Accueil":
             acceuil.app()
-        elif app == "📖 description":
+        elif app == "📖 Description":
             description.app()
         elif app == "💬 Chatbot":
             chatbot.app()
         
 
-    run()
+    def about(self):
+        st.title("À propos de Edu Chat")
+        st.markdown(
+            """
+            **Edu Chat** est un assistant éducatif intelligent destiné aux élèves et aux enseignants du secondaire au Cameroun. 
+            Cette application facilite l'accès aux syllabus des matières, tout en offrant un chatbot capable de répondre aux questions des utilisateurs.
+            """
+        )
+
+    def contact(self):
+        st.title("Contact & Support")
+        st.markdown(
+            """
+            - **Email** : arlysimo@gmail.com  
+            - **Site Web** : [www.edu-chat.com](https://www.edu-chat.com)  
+            - **Téléphone** : +237 656 109 435
+            """
+        )
+
+# Lancer l'application
+app = MultiApp()
+app.add_app("🏠 Accueil", acceuil.app)
+app.add_app("📖 Description", description.app)
+app.add_app("💬 Chatbot", chatbot.app)
+app.run()
