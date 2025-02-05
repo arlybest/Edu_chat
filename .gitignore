@@ -22,3 +22,5 @@
 .gitignore
 .data_projet_tutore
 /data_projet_tutore
+.embeddings.json
+/embeddings.json

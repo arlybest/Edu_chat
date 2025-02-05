@@ -1,115 +1,123 @@
+import os
+import logging
 import streamlit as st
-import random
+from langchain.vectorstores import Pinecone as PineconeLangChain
+from langchain.embeddings import HuggingFaceEmbeddings
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain.chains import RetrievalQA
+from langchain.prompts import PromptTemplate
+from pinecone import Pinecone
 
-st.set_page_config(page_title="Edu_Chat - Chatbot", layout="wide")
+# Configuration des logs
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-# Définir des réponses automatiques basiques
-responses = {
-    "bonjour": "Bonjour ! Comment puis-je vous aider aujourd'hui ?",
-    "syllabus": "Vous pouvez consulter les syllabus en sélectionnant votre classe et matière.",
-    "merci": "Avec plaisir ! 😊",
-    "au revoir": "Au revoir ! Bonne journée et bon apprentissage ! 📚",
-    "default": "Je ne suis pas sûr de comprendre. Pouvez-vous reformuler ?"
-}
+# Clés API
+PINECONE_API_KEY = "pcsk_53U2S4_H35UkcZBx97Wr6JgdNpjhb6yKHEhr8XHDUFTwUtyQbjHk5AYxmSEPLBf9VHBNzC"
+GOOGLE_API_KEY = "AIzaSyAzPkQdUlVtp3iqre6lxMACoPUQNFKlYJg"
 
-# Définir des intents
-intents = {
-    "demande_info": ["Qu'est-ce que", "Pouvez-vous me dire", "Je voudrais savoir"],
-    "pose_question": ["Quelle est", "Qu'est-ce que", "Pouvez-vous me dire"],
-    "remerciement": ["Merci", "Je vous remercie"]
-}
+# Initialisation de Pinecone
+pc = Pinecone(api_key=PINECONE_API_KEY)
+INDEX_NAME = "pdf-documents-index-v2"
 
-# Fonction pour traiter les entrées de l'utilisateur
-def process_input(user_input):
-    user_input = user_input.lower()
-    for intent, keywords in intents.items():
-        for keyword in keywords:
-            if keyword in user_input:
-                return intent
-    return "default"
+# Vérification de l'index (évite la latence de création)
+if INDEX_NAME not in pc.list_indexes().names():
+    pc.create_index(name=INDEX_NAME, dimension=1536, metric="cosine")
 
-# Fonction pour générer des réponses
-def generate_response(intent, user_input):
-    if intent == "demande_info":
-        return "Je vais vous fournir les informations que vous cherchez !"
-    elif intent == "pose_question":
-        return "Je vais essayer de répondre à votre question !"
-    elif intent == "remerciement":
-        return "De rien ! 😊"
-    else:
-        return responses["default"]
+# Chargement du modèle d'embeddings
+embedding_model = HuggingFaceEmbeddings(model_name="intfloat/multilingual-e5-large")
+vectorstore = PineconeLangChain.from_existing_index(index_name=INDEX_NAME, embedding=embedding_model)
 
-# Ajouter le même CSS que l'accueil
-def add_custom_css():
-    st.markdown(
-        """
-        <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f6fc;
-            color: #1b3b6f;
-        }
-        .header-title {
-            text-align: center;
-            font-size: 50px;
-            font-weight: bold;
-            color: #ffffff;
-            padding: 20px;
-            background: linear-gradient(135deg, #87CEEB, #00BFFF);
-            border-radius: 12px;
-        }
-        .stSidebar {
-            background-color: #87CEEB !important;
-            padding: 20px;
-            border-radius: 10px;
-        }
-        .footer {
-            text-align: center;
-            color: white;
-            font-size: 14px;
-            padding: 15px;
-            margin-top: 30px;
-            background: linear-gradient(135deg, #87CEEB, #00BFFF);
-            border-radius: 10px;
-        }
-        </style>
-        """, unsafe_allow_html=True
-    )
+# Configuration du modèle LLM
+llm = ChatGoogleGenerativeAI(
+    model="gemini-1.5-pro",
+    google_api_key=GOOGLE_API_KEY,
+    temperature=0.7,
+    max_tokens=None,
+    max_retries=3
+)
 
-# Appliquer le CSS
-add_custom_css()
+# Prompt optimisé
+prompt_template = PromptTemplate(
+    input_variables=["context", "question", "history"],
+    template="""
+    Tu es un assistant intelligent. Réponds de manière claire et concise.
+    
+    Contexte :
+    {context}
+    
+    Historique :
+    {history}
+    
+    Question :
+    {question}
+    
+    Réponse :
+    """
+)
 
-# Barre latérale avec le sticker
-st.sidebar.markdown("<div class='stSidebar'>", unsafe_allow_html=True)
-st.sidebar.image("C:/Users/arlys/OneDrive/Desktop/m2 data_science/Edu_chat/pages/sticker.png", use_container_width=True)
-st.sidebar.markdown("</div>", unsafe_allow_html=True)
+retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
+qa_chain = RetrievalQA.from_chain_type(
+    llm=llm,
+    chain_type="stuff",
+    retriever=retriever,
+    return_source_documents=False
+)
 
-# Titre de la page
-st.markdown("<div class='header-title'>💬 Edu Chat - Chatbot</div>", unsafe_allow_html=True)
+# Gestion de l'historique
+conversation_history = []
 
-# Interface utilisateur
+def answer_question(question: str) -> str:
+    try:
+        history = "\n".join(conversation_history)
+        result = qa_chain({"query": question, "history": history})
+        response = result.get("result", "Je n'ai pas trouvé d'information pertinente.")
+        
+        if len(conversation_history) > 10:
+            conversation_history.pop(0)
+        conversation_history.append(f"Q: {question}")
+        conversation_history.append(f"R: {response}")
+        
+        return response.strip()
+    except Exception as e:
+        logging.error(f"Erreur : {e}")
+        return "Une erreur s'est produite. Veuillez réessayer."
+
+# Interface utilisateur améliorée
+st.set_page_config(page_title="💬 Edu_Chat", layout="wide")
+st.markdown("""
+    <h1 style='text-align: center;'>💬 Edu_Chat - Assistant Éducatif</h1>
+    <p style='text-align: center; font-size:18px;'>Posez vos questions sur les syllabus 📚</p>
+""", unsafe_allow_html=True)
+
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Afficher les messages précédents
-for message in st.session_state.messages:
-    st.chat_message(message["role"]).markdown(message["content"])
+for msg in st.session_state.messages:
+    role = "👤 Utilisateur" if msg["role"] == "user" else "🤖 Edu_Chat"
+    with st.chat_message(msg["role"]):
+        st.markdown(f"**{role}**: {msg['content']}", unsafe_allow_html=True)
 
-# Zone de saisie de l'utilisateur
-user_input = st.text_input("Entrez votre question :", "")
+user_input = st.chat_input("Posez votre question ici...")
 
 if user_input:
-    # Traiter l'entrée de l'utilisateur
-    intent = process_input(user_input)
-    
-    # Générer une réponse
-    response = generate_response(intent, user_input)
-    
-    # Ajouter le message de l'utilisateur
     st.session_state.messages.append({"role": "user", "content": user_input})
+    with st.chat_message("user"):
+        st.markdown(f"👤 **Vous**: {user_input}", unsafe_allow_html=True)
     
-    # Ajouter la réponse du chatbot
+    with st.spinner("✍️ Réflexion en cours..."):
+        response = answer_question(user_input)
+    
     st.session_state.messages.append({"role": "assistant", "content": response})
-    
-    # Afficher la réponse
-    st.chat_message("assistant").markdown(response)
+    with st.chat_message("assistant"):
+        st.markdown(f"🤖 **Edu_Chat**: {response}", unsafe_allow_html=True)
+
+# CSS amélioré
+st.markdown("""
+    <style>
+        .stChatMessage { border-radius: 10px; padding: 12px; margin-bottom: 12px; }
+        .user-message { background-color: #DCF8C6; border-radius: 12px; padding: 10px; }
+        .assistant-message { background-color: #f5f5f5; border-radius: 12px; padding: 10px; }
+        .stButton button { background-color: #4CAF50; color: white; font-weight: bold; }
+        .stSpinner div { color: #ff9800; }
+    </style>
+""", unsafe_allow_html=True)
