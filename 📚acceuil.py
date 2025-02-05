@@ -60,7 +60,7 @@ add_custom_css()
 
 # Barre latérale de navigation avec une image de sticker
 st.sidebar.markdown("<div class='stSidebar'>", unsafe_allow_html=True)
-st.sidebar.image("C:/Users/arlys/OneDrive/Desktop/m2 data_science/Edu_chat/pages/sticker.png", use_container_width=True)
+st.sidebar.image("pages/sticker.png", use_container_width=True)
 st.sidebar.markdown("</div>", unsafe_allow_html=True)
 
 # Titre principal
